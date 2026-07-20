@@ -1,0 +1,78 @@
+{
+  "id": null,
+  "uid": "shongkhep-main",
+  "title": "Shongkhep AI — Platform Overview",
+  "tags": ["shongkhep", "ai"],
+  "timezone": "browser",
+  "schemaVersion": 38,
+  "refresh": "30s",
+  "panels": [
+    {
+      "id": 1,
+      "title": "Inference Requests / sec",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "targets": [
+        {
+          "expr": "rate(shongkhep_inference_total[1m])",
+          "legendFormat": "{{language}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": { "color": { "mode": "palette-classic" }, "unit": "reqps" }
+      }
+    },
+    {
+      "id": 2,
+      "title": "Inference Latency (p50 / p95 / p99)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "targets": [
+        { "expr": "histogram_quantile(0.50, rate(shongkhep_inference_latency_seconds_bucket[5m]))", "legendFormat": "p50" },
+        { "expr": "histogram_quantile(0.95, rate(shongkhep_inference_latency_seconds_bucket[5m]))", "legendFormat": "p95" },
+        { "expr": "histogram_quantile(0.99, rate(shongkhep_inference_latency_seconds_bucket[5m]))", "legendFormat": "p99" }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "s" }
+      }
+    },
+    {
+      "id": 3,
+      "title": "Cache Hit Rate",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 8 },
+      "targets": [
+        {
+          "expr": "rate(shongkhep_cache_hits_total[5m]) / (rate(shongkhep_cache_hits_total[5m]) + rate(shongkhep_cache_misses_total[5m]))",
+          "legendFormat": "Hit Rate"
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "percentunit", "thresholds": { "steps": [{ "color": "red", "value": 0 }, { "color": "yellow", "value": 0.3 }, { "color": "green", "value": 0.6 }] } } }
+    },
+    {
+      "id": 4,
+      "title": "HTTP Request Rate",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 12 },
+      "targets": [
+        {
+          "expr": "rate(http_requests_total{app=\"shongkhep\"}[1m])",
+          "legendFormat": "{{handler}} {{status_code}}"
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "reqps" } }
+    },
+    {
+      "id": 5,
+      "title": "Active Users by Plan",
+      "type": "piechart",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 12 },
+      "targets": [
+        {
+          "expr": "shongkhep_plan_users",
+          "legendFormat": "{{plan}}"
+        }
+      ]
+    }
+  ]
+}

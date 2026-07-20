@@ -1,0 +1,53 @@
+# ── Web framework ─────────────────────────────────────────────────────────────
+fastapi==0.111.0
+uvicorn[standard]==0.30.1
+python-multipart==0.0.9
+
+# ── Database ──────────────────────────────────────────────────────────────────
+sqlalchemy==2.0.30
+psycopg2-binary==2.9.9
+alembic==1.13.1
+
+# ── Auth / Security ───────────────────────────────────────────────────────────
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+bcrypt==4.0.1
+
+# ── Config ────────────────────────────────────────────────────────────────────
+python-dotenv==1.0.1
+pydantic[email]==2.7.1
+pydantic-settings==2.2.1
+
+# ── Async task queue ──────────────────────────────────────────────────────────
+celery==5.4.0
+redis==5.0.6
+kombu==5.3.7
+
+# ── Cache / Rate limiting ─────────────────────────────────────────────────────
+slowapi==0.1.9
+limits[redis]==3.13.0
+
+# ── AI Model (Ollama HTTP client — no heavy torch needed) ─────────────────────
+httpx==0.27.0
+
+# ── Transformers fallback (mt5-base) ─────────────────────────────────────────
+transformers==4.41.2
+torch==2.3.1
+sentencepiece==0.2.0
+accelerate==0.30.1
+protobuf==3.20.3
+
+# ── Observability ─────────────────────────────────────────────────────────────
+prometheus-fastapi-instrumentator==7.0.0
+prometheus-client==0.20.0
+
+# ── Article scraping ──────────────────────────────────────────────────────────
+beautifulsoup4==4.12.3
+lxml==5.2.2
+newspaper3k==0.2.8
+feedparser==6.0.11
+
+# ── PDF extraction ────────────────────────────────────────────────────────────
+pymupdf==1.24.3
+pytesseract==0.3.13
+Pillow==10.3.0
